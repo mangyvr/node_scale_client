@@ -1,0 +1,5 @@
+const WebSocket = require('ws');
+ 
+const ws = new WebSocket('ws://3914eb28.ngrok.io/scale_ws', {
+  perMessageDeflate: false
+});
