@@ -1,14 +1,14 @@
 const WebSocket = require('ws');
-const ws = new WebSocket('https://77cb1e6b.ngrok.io');
+const ws = new WebSocket('https://17790942.ngrok.io ');
 
 ws.on('open', function open() {
-    console.log('connected');
+  console.log('connected');
 });
 
 ws.on('message', function incoming(data, flags) {
-    console.log(data);
+  console.log(data);
 });
 
 ws.on('close', function close() {
-    console.log('closed');
+  console.log('closed');
 });
