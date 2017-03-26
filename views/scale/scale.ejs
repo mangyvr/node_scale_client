@@ -1,0 +1,8 @@
+<%- include('../partials/header.ejs') %>
+  <div class="container">
+    <h1>Scale Info</h1>
+    <% scaleData.forEach(function(data) { %>
+      <span><%= data %>, </span>
+    <% }); %>
+  </div>
+<%- include('../partials/footer.ejs') %>

@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var scale = require('./routes/scale');
 
 var app = express();
 
@@ -21,9 +22,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
+
+// WS portion
+const wsClient = require('./wsClient.js');
+let scaleData = Array(1024).fill(0, 0, 1023);
+wsClient(scaleData);
+
+// attach scaleData to res.locals for use in routers
+app.use(function(req, res, next) {
+  res.locals.scaleData = scaleData;
+  next();
+});
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/scale', scale);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,21 +59,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// WS portion
-const WebSocket = require('ws');
-const ws = new WebSocket('https://17790942.ngrok.io');
-
-ws.on('open', function open() {
-  console.log('WS scale connected');
-});
-
-ws.on('message', function incoming(data, flags) {
-  console.log(data);
-});
-
-ws.on('close', function close() {
-  console.log('WS scale closed');
-});
 
 
 module.exports = app;
