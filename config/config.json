@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
+    "username": "tyt",
     "password": null,
-    "database": "database_development",
+    "database": "scale_dev",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "test": {
-    "username": "root",
+    "username": "tyt",
     "password": null,
-    "database": "database_test",
+    "database": "scale_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "production": {
-    "username": "root",
+    "username": "tyt",
     "password": null,
-    "database": "database_production",
+    "database": "scale_production",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   }
 }

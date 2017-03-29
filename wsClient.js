@@ -1,6 +1,6 @@
 var wsClient = function (scaleData) {
   const WebSocket = require('ws');
-  const ws = new WebSocket('https://17790942.ngrok.io');
+  const ws = new WebSocket('https://4f568726.ngrok.io');
 
   ws.on('open', function open() {
     console.log('WS scale connected');
