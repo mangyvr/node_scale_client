@@ -1,4 +1,4 @@
-var wsClient = function (scaleData) {
+let wsClient = function (scaleData, scaleSm) {
   const WebSocket = require('ws');
   const ws = new WebSocket('https://4f568726.ngrok.io');
 
@@ -10,7 +10,15 @@ var wsClient = function (scaleData) {
     // console.log(data.match(scaleRe)[0]);
     //Keep scaleData at 1023
     scaleData.shift();
-    scaleData.push(data.match( /(-)?\d+\.\d+/)[0]);
+    let currWeight = data.match( /(-)?\d+\.\d+/)[0];
+    scaleData.push(currWeight);
+    scaleSm.setNextState(parseFloat(currWeight));
+    if ( scaleSm.transitionReady() ) {
+      scaleSm.transition();
+    }
+    // console.log(`weight: ${currWeight}`);
+    // console.log(`currState: ${scaleSm.getCurrState()}`);
+    // console.log(`nextState: ${scaleSm.getNextState()}`);
   });
 
   ws.on('close', function close() {

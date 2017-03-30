@@ -1,15 +1,15 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
-var scale = require('./routes/scale');
+const index = require('./routes/index');
+const users = require('./routes/users');
+const scale = require('./routes/scale');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,14 +24,17 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
-app.use('/js', express.static(__dirname + '/node_modules/chart.js/dist')); // redirect chart.js 
+app.use('/js', express.static(__dirname + '/node_modules/chart.js/dist')); // redirect chart.js
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
-
 // WS portion
+// instantiate and pass in scale state machine
+const scaleSm = require('./scale_sm.js');
+const ssm = new scaleSm;
+
 const wsClient = require('./wsClient.js');
 let scaleData = Array(1024).fill(0, 0, 1023);
-wsClient(scaleData);
+wsClient(scaleData, ssm);
 
 // attach scaleData to res.locals for use in routers
 app.use(function(req, res, next) {
@@ -60,7 +63,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
 
 module.exports = app;
