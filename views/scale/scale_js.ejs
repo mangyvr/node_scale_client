@@ -1,0 +1,20 @@
+<%- include('../partials/header.ejs') %>
+  <script src="/js/Chart.min.js"></script>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/public/javascripts/setup_chart.js"></script>
+  <div class="container">
+    <h1>Scale Info</h1>
+    <h3>Graph of last 50 points</h3>
+
+    <canvas id="scaleChart" height="100vh"></canvas>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      $(window).resize(setupChart);
+      getChartData();
+      setInterval(getChartData, 3000);
+    });
+  </script>
+
+<%- include('../partials/footer.ejs') %>
