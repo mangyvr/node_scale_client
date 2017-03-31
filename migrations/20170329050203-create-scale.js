@@ -15,15 +15,18 @@ module.exports = {
         type: Sequelize.STRING
       },
       state: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: 'coffee_not_present'
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('NOW')
       }
     });
   },

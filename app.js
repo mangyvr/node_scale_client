@@ -30,7 +30,10 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 // WS portion
 // instantiate and pass in scale state machine
 const scaleSm = require('./scale_sm.js');
-const ssm = new scaleSm;
+const {Scale, Scale_stats} = require('./models/index');
+// console.log('creating SSM');
+const ssm = new scaleSm( 1, Scale, Scale_stats );
+// ssm.setScaleModel( Scale, Scale_stats );
 
 const wsClient = require('./wsClient.js');
 let scaleData = Array(1024).fill(0, 0, 1023);

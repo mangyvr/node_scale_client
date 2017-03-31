@@ -12,7 +12,16 @@ let wsClient = function (scaleData, scaleSm) {
     scaleData.shift();
     let currWeight = data.match( /(-)?\d+\.\d+/)[0];
     scaleData.push(currWeight);
-    scaleSm.setNextState(parseFloat(currWeight));
+
+    //average -- not sure if necessary
+    let average = 0;
+    let avgLength = 10;
+    scaleData.slice(scaleData.length - avgLength).forEach( (data) => {
+      average += parseFloat(data);
+    });
+    average = average/avgLength;
+
+    scaleSm.setNextState(average);
     if ( scaleSm.transitionReady() ) {
       scaleSm.transition();
     }
@@ -28,6 +37,7 @@ let wsClient = function (scaleData, scaleSm) {
   process.on('SIGINT', function() {
     console.log('Closing WS connection.');
     ws.close();
+    process.exit();
   });
 };
 
