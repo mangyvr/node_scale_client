@@ -11,9 +11,11 @@
 
   <script>
     $(document).ready(function() {
+      let lastLabel = 0;
+      let chartObj = setupChart();
       $(window).resize(setupChart);
-      getChartData();
-      setInterval(getChartData, 3000);
+      // getChartData();
+      setInterval(() => { getAndUpdateChartData(chartObj.myChart) }, 3000);
     });
   </script>
 

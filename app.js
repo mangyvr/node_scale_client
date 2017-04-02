@@ -33,6 +33,7 @@ app.use("/public", express.static(__dirname + "/public"));
 const scaleSm = require('./scale_sm.js');
 const {Scale, Scale_stats} = require('./models/index');
 // console.log('creating SSM');
+// Hardcoded scale id
 const ssm = new scaleSm( 1, Scale, Scale_stats );
 // ssm.setScaleModel( Scale, Scale_stats );
 

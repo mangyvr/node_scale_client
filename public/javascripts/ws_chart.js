@@ -17,7 +17,6 @@ function setupChart(scaleDataArr=[]) {
                 }
              }
   });
-  // return {chartObj: myChart};
 }
 
 function getAndUpdateChartData() {
